@@ -1,26 +1,176 @@
-@import "tailwindcss";
+/* === Import Tailwind v4 === */
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* === Custom Theme Variables === */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --border: 0 0% 80%;
+    --input: 0 0% 90%;
+    --ring: 240 5% 64%;
+
+    --highlight-green: #ceff65;
+    --bg-white: #ffffff;
+    --font-satoshi: 'Satoshi', sans-serif;
+    --font-coolvetica: 'Coolvetica', sans-serif;
+  }
+
+  .dark {
+    --background: 240 10% 10%;
+    --foreground: 240 10% 90%;
+    --card: 240 10% 15%;
+    --card-foreground: 240 10% 90%;
+    --border: 240 10% 40%;
+    --input: 240 10% 25%;
+    --ring: 240 10% 50%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* === Custom Colors === */
+@layer base {
+  :root {
+    --primary: hsl(var(--primary));
+    --secondary: hsl(var(--secondary));
+    --muted: hsl(var(--muted));
+    --accent: hsl(var(--accent));
+    --destructive: hsl(var(--destructive));
+
+    --chart-1: hsl(var(--chart-1));
+    --chart-2: hsl(var(--chart-2));
+    --chart-3: hsl(var(--chart-3));
+    --chart-4: hsl(var(--chart-4));
+    --chart-5: hsl(var(--chart-5));
+  }
+}
+
+/* === Typography === */
+@layer base {
+  h1 {
+    @apply text-4xl font-bold;
+  }
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+  p {
+    @apply text-base leading-relaxed;
+  }
+}
+
+/* === Font Families === */
+@layer base {
+  @font-face {
+    font-family: 'Satoshi';
+    src: url('/fonts/satoshi/Satoshi-medium.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Coolvetica';
+    src: url('/fonts/coolvetica/CoolveticaRg.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  body {
+    font-family: 'Satoshi', sans-serif;
+  }
+}
+
+/* === Responsive Containers === */
+@layer utilities {
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* === Border Radius === */
+@layer utilities {
+  .rounded-sm {
+    border-radius: calc(var(--radius) - 4px);
+  }
+  .rounded-md {
+    border-radius: calc(var(--radius) - 2px);
+  }
+  .rounded-lg {
+    border-radius: var(--radius);
+  }
+  .rounded-xl {
+    border-radius: 2rem;
+  }
+}
+
+/* === Animations & Transitions === */
+@layer utilities {
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  .transition-all {
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+/* === Responsive Font Sizes === */
+@layer utilities {
+  .text-sm {
+    font-size: clamp(0.8rem, 0.17vw + 0.76rem, 0.89rem);
+  }
+  .text-base {
+    font-size: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+  }
+  .text-lg {
+    font-size: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+  }
+  .text-title {
+    font-size: clamp(2.44rem, 2.38vw + 1.85rem, 2.8rem);
+  }
+  .text-hero {
+    font-size: clamp(4rem, 7.48vw + 5rem, 12rem);
+  }
+
+  .font-satoshi {
+    font-family: var(--font-satoshi);
+  }
+  .font-coolvetica {
+    font-family: var(--font-coolvetica);
+  }
+}
+
+/* === Translate Classes (for Menu/Sidebar) === */
+@layer utilities {
+  .translate-hidden {
+    transform: translateX(-100%);
+  }
+  .translate-visible {
+    transform: translateX(0%);
+  }
 }
